@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
 
+import '../widgets/button.dart';
 import 'notification_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,14 +20,20 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           onPressed: () {
             ThemeServices().switchMode();
-            Get.to(NotificationScreen(pyload: 'Title | Description | 10:22 Am'));
+            Get.to(
+                NotificationScreen(pyload: 'Title | Description | 10:22 Am'));
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
         centerTitle: true,
         backgroundColor: context.theme.primaryColor,
       ),
-      body: Container(),
+      body: Center(
+        child: MyButton(
+          label: 'Add Task',
+          onTap: () {},
+        ),
+      ),
     );
   }
 }
