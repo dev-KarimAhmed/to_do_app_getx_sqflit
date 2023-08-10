@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
 
+import '../size_config.dart';
 import '../widgets/button.dart';
+import '../widgets/input_field.dart';
 import 'notification_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -28,10 +31,17 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: context.theme.primaryColor,
       ),
-      body: Center(
-        child: MyButton(
-          label: 'Add Task',
-          onTap: () {},
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            MyButton(
+              label: 'Add Task',
+              onTap: () {},
+            ),
+            InputField(hint: 'Add Task', title: 'title'),
+          ],
         ),
       ),
     );

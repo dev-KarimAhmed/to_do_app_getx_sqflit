@@ -21,7 +21,9 @@ class Themes {
       scaffoldBackgroundColor: darkHeaderClr,
       brightness: Brightness.dark);
 
-  TextStyle get headingStyle {
+  
+}
+TextStyle get headingStyle {
     return GoogleFonts.lato(
       textStyle: TextStyle(
         color: Get.isDarkMode ? Colors.white : darkGreyClr,
@@ -80,4 +82,3 @@ class Themes {
       ),
     );
   }
-}
