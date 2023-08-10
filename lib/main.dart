@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       title: 'To Do',
       debugShowCheckedModeBanner: false,
-      home: NotificationScreen(pyload:'Karim | Ahmed | Hashim'),
+      home: NotificationScreen(pyload:'title | Description | 10:22 Am'),
     );
   }
 }
