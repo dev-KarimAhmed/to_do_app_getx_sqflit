@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
 import 'package:to_do_app_getx_sqflit/ui/theme.dart';
 
+import '../../controllers/task_controller.dart';
 import '../size_config.dart';
 import '../widgets/button.dart';
 import '../widgets/input_field.dart';
@@ -48,20 +50,46 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            MyButton(
-              label: 'Add Task',
-              onTap: () {
-                Get.to(AddTaskPage());
-              },
-            ),
-            InputField(hint: 'Add Task', title: 'title'),
-          ],
+        child: Container(
+          margin: EdgeInsets.only(left: 20, top: 20, right: 10),
+          child: Column(
+            children: [
+              taskBar(),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Row taskBar() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              DateFormat.yMMMMd().format(DateTime.now()),
+              style: subHeadingStyle,
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Text(
+              'Today',
+              style: subHeadingStyle,
+            ),
+          ],
+        ),
+        MyButton(
+          label: '+ Add Task',
+          onTap: () async {
+            await Get.to(AddTaskPage());
+            TaskController().getTasks();
+          },
+        ),
+      ],
     );
   }
 }
