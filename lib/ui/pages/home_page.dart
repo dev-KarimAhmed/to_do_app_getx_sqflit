@@ -5,6 +5,7 @@ import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
 import '../size_config.dart';
 import '../widgets/button.dart';
 import '../widgets/input_field.dart';
+import 'add_task_page.dart';
 import 'notification_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,7 +39,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             MyButton(
               label: 'Add Task',
-              onTap: () {},
+              onTap: () {
+                Get.to(AddTaskPage());
+              },
             ),
             InputField(hint: 'Add Task', title: 'title'),
           ],
