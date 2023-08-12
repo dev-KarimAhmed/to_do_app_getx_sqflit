@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/task_controller.dart';
+import '../../services/theme_services.dart';
 import '../theme.dart';
 import '../widgets/button.dart';
 import '../widgets/input_field.dart';
+import 'notification_screen.dart';
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({Key? key}) : super(key: key);
@@ -31,7 +33,31 @@ class _AddTaskPageState extends State<AddTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      backgroundColor: context.theme.scaffoldBackgroundColor,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 24,
+            color: primaryClr,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/person.jpeg'),
+              radius: 18,
+            ),
+          )
+        ],
+      ),
       body: Container(
         padding: EdgeInsets.all(16),
         child: SingleChildScrollView(

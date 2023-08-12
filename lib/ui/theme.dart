@@ -14,71 +14,69 @@ class Themes {
   static final light = ThemeData(
       primaryColor: primaryClr,
       scaffoldBackgroundColor: white,
-      brightness: Brightness.light
-      );
+      brightness: Brightness.light);
   static final dark = ThemeData(
       primaryColor: darkGreyClr,
       scaffoldBackgroundColor: darkHeaderClr,
       brightness: Brightness.dark);
-
-  
 }
+
 TextStyle get headingStyle {
-    return GoogleFonts.lato(
-      textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : darkGreyClr,
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: Get.isDarkMode ? Colors.white : darkGreyClr,
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+}
 
-  TextStyle get subHeadingStyle {
-    return GoogleFonts.lato(
-      textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : darkGreyClr,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
+TextStyle get subHeadingStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: Get.isDarkMode ? Colors.white : darkGreyClr,
+      fontSize: 20,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+}
 
-  TextStyle get titleStyle {
-    return GoogleFonts.lato(
-      textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : darkGreyClr,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
+TextStyle get titleStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: Get.isDarkMode ? Colors.white : darkGreyClr,
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+}
 
-  TextStyle get subTitleStyle {
-    return GoogleFonts.lato(
-      textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : darkGreyClr,
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
+TextStyle get subTitleStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: Get.isDarkMode ? Colors.white : darkGreyClr,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    ),
+  );
+}
 
-  TextStyle get bodyStyle {
-    return GoogleFonts.lato(
-      textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.white : darkGreyClr,
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
+TextStyle get bodyStyle {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: Get.isDarkMode ? Colors.white : darkGreyClr,
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ),
+  );
+}
 
-  TextStyle get body2Style {
-    return GoogleFonts.lato(
-      textStyle: TextStyle(
-        color: Get.isDarkMode ? Colors.grey[200] : darkGreyClr,
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
+TextStyle get body2Style {
+  return GoogleFonts.lato(
+    textStyle: TextStyle(
+      color: Get.isDarkMode ? Colors.grey[200] : darkGreyClr,
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+    ),
+  );
+}

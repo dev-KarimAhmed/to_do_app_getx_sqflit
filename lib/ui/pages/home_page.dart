@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
+import 'package:to_do_app_getx_sqflit/ui/theme.dart';
 
 import '../size_config.dart';
 import '../widgets/button.dart';
@@ -20,17 +21,31 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             ThemeServices().switchMode();
-            Get.to(
-                NotificationScreen(pyload: 'Title | Description | 10:22 Am'));
           },
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(
+            Get.isDarkMode
+                ? Icons.wb_sunny_outlined
+                : Icons.nightlight_round_outlined,
+            color: Get.isDarkMode ? Colors.white : darkGreyClr,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: context.theme.primaryColor,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/person.jpeg'),
+              radius: 18,
+            ),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
