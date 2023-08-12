@@ -1,5 +1,7 @@
+import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
 import 'package:to_do_app_getx_sqflit/ui/theme.dart';
@@ -19,6 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  DateTime _selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -50,46 +53,87 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.only(left: 20, top: 20, right: 10),
-          child: Column(
-            children: [
-              taskBar(),
-            ],
-          ),
+        child: Column(
+          children: [
+            taskBar(),
+            datePicker(),
+          ],
         ),
       ),
     );
   }
 
-  Row taskBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              DateFormat.yMMMMd().format(DateTime.now()),
-              style: subHeadingStyle,
+  Container datePicker() {
+    return Container(
+            margin: EdgeInsets.only(top: 6, left: 14),
+            child: DatePicker(
+              DateTime.now(),
+              width: 80,
+              height: 100,
+              selectedTextColor: Colors.white,
+              selectionColor: primaryClr,
+              initialSelectedDate: DateTime.now(),
+              dateTextStyle: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              dayTextStyle: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              monthTextStyle: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              onDateChange: (newVal) {
+                setState(() {
+                  _selectedDate = newVal;
+                });
+              },
             ),
-            SizedBox(
-              height: 6,
-            ),
-            Text(
-              'Today',
-              style: subHeadingStyle,
-            ),
-          ],
-        ),
-        MyButton(
-          label: '+ Add Task',
-          onTap: () async {
-            await Get.to(AddTaskPage());
-            TaskController().getTasks();
-          },
-        ),
-      ],
+          );
+  }
+
+  Container taskBar() {
+    return Container(
+      margin: EdgeInsets.only(left: 20, top: 20, right: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                DateFormat.yMMMMd().format(DateTime.now()),
+                style: subHeadingStyle,
+              ),
+              SizedBox(
+                height: 6,
+              ),
+              Text(
+                'Today',
+                style: subHeadingStyle,
+              ),
+            ],
+          ),
+          MyButton(
+            label: '+ Add Task',
+            onTap: () async {
+              await Get.to(AddTaskPage());
+              TaskController().getTasks();
+            },
+          ),
+        ],
+      ),
     );
   }
 }
