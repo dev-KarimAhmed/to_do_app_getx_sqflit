@@ -8,6 +8,7 @@ import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
 import 'package:to_do_app_getx_sqflit/ui/theme.dart';
 
 import '../../controllers/task_controller.dart';
+import '../../services/notification_services.dart';
 import '../size_config.dart';
 import '../widgets/button.dart';
 import '../widgets/input_field.dart';
@@ -22,6 +23,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late NotifyHelper notifyHelper;
+  void initState() {
+    super.initState();
+    notifyHelper = NotifyHelper();
+    notifyHelper.initilaizeNotifications();
+    notifyHelper.requestIosPermession();
+  }
+
   DateTime _selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
@@ -32,6 +41,9 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           onPressed: () {
             ThemeServices().switchMode();
+            notifyHelper.displayNotifications(
+                title: 'Theme Changed', body: 'body');
+            notifyHelper.scheduleNotifications();
           },
           icon: Icon(
             Get.isDarkMode
