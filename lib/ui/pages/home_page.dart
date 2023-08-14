@@ -45,9 +45,9 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           onPressed: () {
             ThemeServices().switchMode();
-            notifyHelper.displayNotifications(
-                title: 'Theme Changed', body: 'body');
-            notifyHelper.scheduleNotifications();
+            // notifyHelper.displayNotifications(
+            //     title: 'Theme Changed', body: 'body');
+            // notifyHelper.scheduleNotifications();
           },
           icon: Icon(
             Get.isDarkMode
@@ -169,7 +169,17 @@ class _HomePageState extends State<HomePage> {
               : Axis.vertical,
           itemCount: taskController.taskList.length,
           itemBuilder: (BuildContext context, int index) {
-            var task = taskController.taskList[index];
+            Task task = taskController.taskList[index];
+
+            // var date = DateFormat.jm().parse(task.startTime!);
+            //  var myTime = DateFormat('HH:mm').format(date);
+            // print(myTime);
+            // print(int.parse(myTime.toString().split(':')[0]));
+            // print(int.parse(myTime.toString().split(':')[0]));
+            notifyHelper.scheduleNotifications(
+                08,
+                48,
+                task);
             return AnimationConfiguration.staggeredList(
               position: index,
               duration: Duration(milliseconds: 1000),
