@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:to_do_app_getx_sqflit/models/task.dart';
 import 'package:to_do_app_getx_sqflit/services/theme_services.dart';
 import 'package:to_do_app_getx_sqflit/ui/theme.dart';
 
@@ -12,6 +13,7 @@ import '../../services/notification_services.dart';
 import '../size_config.dart';
 import '../widgets/button.dart';
 import '../widgets/input_field.dart';
+import '../widgets/task_tile.dart';
 import 'add_task_page.dart';
 import 'notification_screen.dart';
 
@@ -185,45 +187,80 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget noTaskMsg() {
-    return Stack(
+    return Column(
       children: [
-        AnimatedPositioned(
-          duration: Duration(milliseconds: 2000),
-          child: SingleChildScrollView(
-            child: Wrap(
-              direction: SizeConfig.orientation == Orientation.landscape
-                  ? Axis.horizontal
-                  : Axis.vertical,
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                SizeConfig.orientation == Orientation.landscape
-                    ? SizedBox(
-                        height: 6,
-                      )
-                    : SizedBox(
-                        height: 220,
-                      ),
-                SvgPicture.asset(
-                  'assets/images/task.svg',
-                  height: 90,
-                  color: primaryClr.withOpacity(0.5),
-                  semanticsLabel: 'Task',
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    'You have not any Tasks yet!\nAdd Tasks to make your day productive',
-                    style: subTitleStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
+        TaskTile(
+          Task(
+            title: 'Note Title 1',
+            note: 'This is my note for test',
+            isCompleted: 1,
+            startTime: '02:30',
+            endTime: '03:50',
+            color: 0,
+          ),
+        ),
+        TaskTile(
+          Task(
+            title: 'Note Title 2',
+            note: 'This is my note for test',
+            isCompleted: 0,
+            startTime: '02:30',
+            endTime: '03:50',
+            color: 1,
+          ),
+        ),
+        TaskTile(
+          Task(
+            title: 'Note Title 3',
+            note: 'This is my note for test',
+            isCompleted: 1,
+            startTime: '02:30',
+            endTime: '03:50',
+            color: 2,
           ),
         ),
       ],
     );
+    //   return Stack(
+    //     children: [
+    //       AnimatedPositioned(
+    //         duration: Duration(milliseconds: 2000),
+    //         child: SingleChildScrollView(
+    //           child: Wrap(
+    //             direction: SizeConfig.orientation == Orientation.landscape
+    //                 ? Axis.horizontal
+    //                 : Axis.vertical,
+    //             alignment: WrapAlignment.center,
+    //             crossAxisAlignment: WrapCrossAlignment.center,
+    //             children: [
+    //               SizeConfig.orientation == Orientation.landscape
+    //                   ? SizedBox(
+    //                       height: 6,
+    //                     )
+    //                   : SizedBox(
+    //                       height: 220,
+    //                     ),
+    //               SvgPicture.asset(
+    //                 'assets/images/task.svg',
+    //                 height: 90,
+    //                 color: primaryClr.withOpacity(0.5),
+    //                 semanticsLabel: 'Task',
+    //               ),
+    //               Padding(
+    //                 padding:
+    //                     const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    //                 child: Text(
+    //                   'You have not any Tasks yet!\nAdd Tasks to make your day productive',
+    //                   style: subTitleStyle,
+    //                   textAlign: TextAlign.center,
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   );
+    // }
   }
 }
