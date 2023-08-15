@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../controllers/task_controller.dart';
+import '../../models/task.dart';
 import '../../services/theme_services.dart';
 import '../theme.dart';
 import '../widgets/button.dart';
@@ -82,7 +83,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
               InputField(
                 hint: '${DateFormat().add_yMd().format(selectedDate)}',
                 title: 'Date',
-                controller: noteController,
                 widget: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.calendar_today_outlined)),
@@ -94,7 +94,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     child: InputField(
                       hint: '$startTime',
                       title: 'Start Time',
-                      controller: noteController,
                       widget: IconButton(
                           onPressed: () {}, icon: Icon(Icons.access_time)),
                     ),
@@ -104,7 +103,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     child: InputField(
                       hint: '$endTime',
                       title: 'End Time',
-                      controller: noteController,
                       widget: IconButton(
                           onPressed: () {}, icon: Icon(Icons.access_time)),
                     ),
@@ -183,9 +181,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     ],
                   ),
                   MyButton(
-                    label: 'Add Task',
+                    label: 'Create Task',
                     onTap: () {
-                      Get.back();
+                      validateData();
                     },
                   ),
                 ],
@@ -227,5 +225,44 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 ),
               )),
     );
+  }
+
+  validateData() async {
+    if (titleController.text.isNotEmpty && noteController.text.isNotEmpty) {
+      addTasksToDB();
+      Get.back();
+    } else if (titleController.text.isEmpty ||
+        noteController.text.isEmpty) {
+      Get.snackbar(
+        'Required',
+        'All Fields Are Required!',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.white,
+        colorText: pinkClr,
+        icon: Icon(
+          Icons.warning,
+          color: pinkClr,
+        ),
+      );
+    } else {
+      print('------------------------SomeThing bad  happened--------------------');
+    }
+  }
+
+  addTasksToDB() async {
+    int value = await taskController.addTask(
+      task: Task(
+        title: titleController.text,
+        note: noteController.text,
+        date: DateFormat.yMd().format(selectedDate),
+        startTime: startTime,
+        endTime: endTime,
+        remind: selectedRemind,
+        repeat: selectedRepeat,
+        color: selectedColor,
+        isCompleted: 0,
+      ),
+    );
+    print('value is $value');
   }
 }

@@ -9,9 +9,12 @@ class TaskController extends GetxController {
       title: 'Title 1',
       note: 'this my note for me yes ofcourse 1',
       isCompleted: 0,
-      startTime: DateFormat('hh:mm a').format(DateTime.now().add(Duration(minutes: 1))).toString(),
+      startTime: DateFormat('hh:mm a')
+          .format(DateTime.now().add(Duration(minutes: 1)))
+          .toString(),
       color: 0,
     ),
-];
+  ];
   getTasks() {}
+  addTask({Task? task}) {}
 }
