@@ -84,7 +84,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 hint: '${DateFormat().add_yMd().format(selectedDate)}',
                 title: 'Date',
                 widget: IconButton(
-                    onPressed: () {},
+                    onPressed: () => getDateFromUser(),
                     icon: Icon(Icons.calendar_today_outlined)),
               ),
               SizedBox(height: 10),
@@ -95,7 +95,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       hint: '$startTime',
                       title: 'Start Time',
                       widget: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.access_time)),
+                        onPressed: () => getTimeFromUser(isStartTime: true),
+                        icon: Icon(
+                          Icons.access_time,
+                        ),
+                      ),
                     ),
                   ),
                   SizedBox(width: 12),
@@ -104,7 +108,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       hint: '$endTime',
                       title: 'End Time',
                       widget: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.access_time)),
+                        onPressed: () => getTimeFromUser(isStartTime: false),
+                        icon: Icon(
+                          Icons.access_time,
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -231,8 +239,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     if (titleController.text.isNotEmpty && noteController.text.isNotEmpty) {
       addTasksToDB();
       Get.back();
-    } else if (titleController.text.isEmpty ||
-        noteController.text.isEmpty) {
+    } else if (titleController.text.isEmpty || noteController.text.isEmpty) {
       Get.snackbar(
         'Required',
         'All Fields Are Required!',
@@ -245,7 +252,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
         ),
       );
     } else {
-      print('------------------------SomeThing bad  happened--------------------');
+      print(
+          '------------------------SomeThing bad  happened--------------------');
     }
   }
 
@@ -264,5 +272,39 @@ class _AddTaskPageState extends State<AddTaskPage> {
       ),
     );
     print('value is $value');
+  }
+
+  getDateFromUser() async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2050),
+    );
+    setState(() {
+      selectedDate = pickedDate ?? selectedDate;
+    });
+  }
+
+  getTimeFromUser({required bool isStartTime}) async {
+    TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: isStartTime
+          ? TimeOfDay.fromDateTime(DateTime.now())
+          : TimeOfDay.fromDateTime(DateTime.now().add(Duration(minutes: 15))),
+    );
+
+    String formattedTime = pickedTime!.format(context);
+    if (isStartTime) {
+      setState(() {
+        startTime = formattedTime;
+      });
+    } else if (!isStartTime) {
+      setState(() {
+        endTime = formattedTime;
+      });
+    } else {
+      debugPrint('is null or someThing was error');
+    }
   }
 }
