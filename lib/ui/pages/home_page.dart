@@ -26,7 +26,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TaskController taskController = TaskController();
+  // TaskController taskController = TaskController();
   late NotifyHelper notifyHelper;
   void initState() {
     super.initState();
@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            ThemeServices().switchMode();
+            // ThemeServices().switchMode();
             // notifyHelper.displayNotifications(
             //     title: 'Theme Changed', body: 'body');
             // notifyHelper.scheduleNotifications();
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 6,
               ),
-              showTask(),
+              // showTask(),
             ],
           ),
         ),
@@ -152,8 +152,9 @@ class _HomePageState extends State<HomePage> {
           MyButton(
             label: '+ Add Task',
             onTap: () async {
-              await Get.to(AddTaskPage());
-              taskController.getTasks();
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddTaskPage()));
+              // taskController.getTasks();
             },
           ),
         ],
@@ -161,184 +162,199 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  showTask() {
-    return Expanded(
-      child: ListView.builder(
-          scrollDirection: SizeConfig.orientation == Orientation.landscape
-              ? Axis.horizontal
-              : Axis.vertical,
-          itemCount: taskController.taskList.length,
-          itemBuilder: (BuildContext context, int index) {
-            Task task = taskController.taskList[index];
+  // showTask() {
+  //   return Expanded(
+  //     child: Obx(() {
+  //       if (taskController.taskList.isEmpty) {
+  //         return noTaskMsg();
+  //       } else {
+  //         print(taskController.taskList.length);
+  //         print(taskController.taskList);
+  //         return RefreshIndicator(
+  //           onRefresh: onRefresh,
+  //           child: ListView.builder(
+  //               scrollDirection: SizeConfig.orientation == Orientation.landscape
+  //                   ? Axis.horizontal
+  //                   : Axis.vertical,
+  //               itemCount: taskController.taskList.length,
+  //               itemBuilder: (BuildContext context, int index) {
+  //                 Task task = taskController.taskList[index];
 
-            // var date = DateFormat.jm().parse(task.startTime!);
-            //  var myTime = DateFormat('HH:mm').format(date);
-            // print(myTime);
-            // print(int.parse(myTime.toString().split(':')[0]));
-            // print(int.parse(myTime.toString().split(':')[0]));
-            notifyHelper.scheduleNotifications(
-                08,
-                48,
-                task);
-            return AnimationConfiguration.staggeredList(
-              position: index,
-              duration: Duration(milliseconds: 1000),
-              child: SlideAnimation(
-                horizontalOffset: 300,
-                child: FadeInAnimation(
-                  child: GestureDetector(
-                    onTap: () {
-                      showModelSheent(context, task);
-                    },
-                    child: TaskTile(task),
+  //                 // var date = DateFormat.jm().parse(task.startTime!);
+  //                 //  var myTime = DateFormat('HH:mm').format(date);
+  //                 // print(myTime);
+  //                 // print(int.parse(myTime.toString().split(':')[0]));
+  //                 // print(int.parse(myTime.toString().split(':')[0]));
+  //                 notifyHelper.scheduleNotifications(08, 48, task);
+  //                 return AnimationConfiguration.staggeredList(
+  //                   position: index,
+  //                   duration: Duration(milliseconds: 1000),
+  //                   child: SlideAnimation(
+  //                     horizontalOffset: 300,
+  //                     child: FadeInAnimation(
+  //                       child: GestureDetector(
+  //                         onTap: () {
+  //                           showModelSheent(context, task);
+  //                         },
+  //                         child: TaskTile(task),
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 );
+  //               }),
+  //         );
+  //       }
+  //     }),
+  //   );
+  // }
+
+  // Widget noTaskMsg() {
+  //   return Stack(
+  //     children: [
+  //       AnimatedPositioned(
+  //         duration: Duration(milliseconds: 2000),
+  //         child: RefreshIndicator(
+  //           onRefresh: onRefresh,
+  //           child: SingleChildScrollView(
+  //             child: Wrap(
+  //               direction: SizeConfig.orientation == Orientation.landscape
+  //                   ? Axis.horizontal
+  //                   : Axis.vertical,
+  //               alignment: WrapAlignment.center,
+  //               crossAxisAlignment: WrapCrossAlignment.center,
+  //               children: [
+  //                 SizeConfig.orientation == Orientation.landscape
+  //                     ? SizedBox(
+  //                         height: 6,
+  //                       )
+  //                     : SizedBox(
+  //                         height: 220,
+  //                       ),
+  //                 SvgPicture.asset(
+  //                   'assets/images/task.svg',
+  //                   height: 90,
+  //                   color: primaryClr.withOpacity(0.5),
+  //                   semanticsLabel: 'Task',
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.symmetric(
+  //                       horizontal: 20, vertical: 10),
+  //                   child: Text(
+  //                     'You have not any Tasks yet!\nAdd Tasks to make your day productive',
+  //                     style: subTitleStyle,
+  //                     textAlign: TextAlign.center,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
+
+  // Future<void> onRefresh() async {
+  //   taskController.getTasks();
+  // }
+
+  showModelSheent(BuildContext context, Task task) {
+    Get.bottomSheet(
+      SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.only(top: 4),
+          width: SizeConfig.screenWidth,
+          height: (SizeConfig.orientation == Orientation.landscape)
+              ? (task.isCompleted == 1
+                  ? SizeConfig.screenHeight * 0.6
+                  : SizeConfig.screenHeight * 0.8)
+              : (task.isCompleted == 1
+                  ? SizeConfig.screenHeight * 0.30
+                  : SizeConfig.screenHeight * 0.39),
+          color: Get.isDarkMode ? darkHeaderClr : Colors.white,
+          child: Column(
+            children: [
+              Flexible(
+                child: Container(
+                  width: 6,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[600],
                   ),
                 ),
               ),
-            );
-          }),
-    );
-  }
-
-  Widget noTaskMsg() {
-    return Stack(
-      children: [
-        AnimatedPositioned(
-          duration: Duration(milliseconds: 2000),
-          child: SingleChildScrollView(
-            child: Wrap(
-              direction: SizeConfig.orientation == Orientation.landscape
-                  ? Axis.horizontal
-                  : Axis.vertical,
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              children: [
-                SizeConfig.orientation == Orientation.landscape
-                    ? SizedBox(
-                        height: 6,
-                      )
-                    : SizedBox(
-                        height: 220,
-                      ),
-                SvgPicture.asset(
-                  'assets/images/task.svg',
-                  height: 90,
-                  color: primaryClr.withOpacity(0.5),
-                  semanticsLabel: 'Task',
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    'You have not any Tasks yet!\nAdd Tasks to make your day productive',
-                    style: subTitleStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ],
-            ),
+              SizedBox(
+                height: 20,
+              ),
+              task.isCompleted == 1
+                  ? Container()
+                  : buildBottomSheet(
+                      label: 'Task Completed',
+                      onTap: () {
+                        Get.back();
+                      },
+                      clr: primaryClr,
+                    ),
+              buildBottomSheet(
+                label: 'Delete Completed',
+                onTap: () {
+                  Get.back();
+                },
+                clr: primaryClr,
+              ),
+              Divider(
+                color: Get.isDarkMode ? Colors.grey : darkGreyClr,
+              ),
+              buildBottomSheet(
+                label: 'Cancel',
+                onTap: () {
+                  Get.back();
+                },
+                clr: primaryClr,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
-}
 
-showModelSheent(BuildContext context, Task task) {
-  Get.bottomSheet(
-    SingleChildScrollView(
+  buildBottomSheet({
+    required String label,
+    required Function() onTap,
+    required Color clr,
+    bool isClose = false,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.only(top: 4),
-        width: SizeConfig.screenWidth,
-        height: (SizeConfig.orientation == Orientation.landscape)
-            ? (task.isCompleted == 1
-                ? SizeConfig.screenHeight * 0.6
-                : SizeConfig.screenHeight * 0.8)
-            : (task.isCompleted == 1
-                ? SizeConfig.screenHeight * 0.30
-                : SizeConfig.screenHeight * 0.39),
-        color: Get.isDarkMode ? darkHeaderClr : Colors.white,
-        child: Column(
-          children: [
-            Flexible(
-              child: Container(
-                width: 6,
-                height: 120,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[600],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            task.isCompleted == 1
-                ? Container()
-                : buildBottomSheet(
-                    label: 'Task Completed',
-                    onTap: () {
-                      Get.back();
-                    },
-                    clr: primaryClr,
-                  ),
-            buildBottomSheet(
-              label: 'Delete Completed',
-              onTap: () {
-                Get.back();
-              },
-              clr: primaryClr,
-            ),
-            Divider(
-              color: Get.isDarkMode ? Colors.grey : darkGreyClr,
-            ),
-            buildBottomSheet(
-              label: 'Cancel',
-              onTap: () {
-                Get.back();
-              },
-              clr: primaryClr,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-          ],
+        margin: const EdgeInsets.symmetric(vertical: 4),
+        height: 65,
+        width: SizeConfig.screenWidth * 0.9,
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: isClose
+                ? Get.isDarkMode
+                    ? Colors.grey[600]!
+                    : Colors.grey[300]!
+                : clr,
+          ), // Border.all
+          borderRadius: BorderRadius.circular(20),
+          color: isClose ? Colors.transparent : clr,
+        ),
+        child: Center(
+          child: Text(
+            label,
+            style:
+                isClose ? titleStyle : titleStyle.copyWith(color: Colors.white),
+          ),
         ),
       ),
-    ),
-  );
-}
-
-buildBottomSheet({
-  required String label,
-  required Function() onTap,
-  required Color clr,
-  bool isClose = false,
-}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      height: 65,
-      width: SizeConfig.screenWidth * 0.9,
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 2,
-          color: isClose
-              ? Get.isDarkMode
-                  ? Colors.grey[600]!
-                  : Colors.grey[300]!
-              : clr,
-        ), // Border.all
-        borderRadius: BorderRadius.circular(20),
-        color: isClose ? Colors.transparent : clr,
-      ),
-      child: Center(
-        child: Text(
-          label,
-          style:
-              isClose ? titleStyle : titleStyle.copyWith(color: Colors.white),
-        ),
-      ),
-    ),
-  );
+    );
+  }
 }

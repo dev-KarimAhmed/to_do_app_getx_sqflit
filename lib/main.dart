@@ -9,8 +9,8 @@ import 'package:to_do_app_getx_sqflit/ui/theme.dart';
 import 'ui/pages/home_page.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized;
- await DBHelper.initDB();
+  WidgetsFlutterBinding.ensureInitialized();
+//  await DBHelper.initDB();
  await GetStorage.init();
   runApp(const MyApp());
 }
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: Themes.light,
       darkTheme: Themes.dark,
-      themeMode: ThemeServices().theme,
+      // themeMode: ThemeServices().theme,
       title: 'To Do',
       debugShowCheckedModeBanner: false,
       home: HomePage(),

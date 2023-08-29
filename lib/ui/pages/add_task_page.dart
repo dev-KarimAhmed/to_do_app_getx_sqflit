@@ -18,7 +18,7 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskPageState extends State<AddTaskPage> {
-  final TaskController taskController = Get.put(TaskController());
+  // final TaskController taskController = Get.put(TaskController());
   final TextEditingController titleController = TextEditingController();
   final TextEditingController noteController = TextEditingController();
   DateTime selectedDate = DateTime.now();
@@ -38,7 +38,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_ios,
@@ -191,7 +191,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   MyButton(
                     label: 'Create Task',
                     onTap: () {
-                      validateData();
+            Navigator.pop(context);
+                      //  validateData();
                     },
                   ),
                 ],
@@ -235,44 +236,46 @@ class _AddTaskPageState extends State<AddTaskPage> {
     );
   }
 
-  validateData() async {
-    if (titleController.text.isNotEmpty && noteController.text.isNotEmpty) {
-      addTasksToDB();
-      Get.back();
-    } else if (titleController.text.isEmpty || noteController.text.isEmpty) {
-      Get.snackbar(
-        'Required',
-        'All Fields Are Required!',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.white,
-        colorText: pinkClr,
-        icon: Icon(
-          Icons.warning,
-          color: pinkClr,
-        ),
-      );
-    } else {
-      print(
-          '------------------------SomeThing bad  happened--------------------');
-    }
-  }
+  // validateData() async {
+  //   if (titleController.text.isNotEmpty && noteController.text.isNotEmpty) {
+  //     addTasksToDB();
+  //     print('ADDed');
+  //     Get.back();
+  //   } else if (titleController.text.isEmpty || noteController.text.isEmpty) {
+  //     Get.snackbar(
+  //       'Required',
+  //       'All Fields Are Required!',
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       backgroundColor: Colors.white,
+  //       colorText: pinkClr,
+  //       icon: Icon(
+  //         Icons.warning,
+  //         color: pinkClr,
+  //       ),
+  //     );
+  //   } else {
+  //     print(
+  //         '------------------------SomeThing bad  happened--------------------');
+  //   }
+  // }
 
-  addTasksToDB() async {
-    int value = await taskController.addTask(
-      task: Task(
-        title: titleController.text,
-        note: noteController.text,
-        date: DateFormat.yMd().format(selectedDate),
-        startTime: startTime,
-        endTime: endTime,
-        remind: selectedRemind,
-        repeat: selectedRepeat,
-        color: selectedColor,
-        isCompleted: 0,
-      ),
-    );
-    print('value is $value');
-  }
+  // addTasksToDB() async {
+  //   try {
+  //      await taskController.addTask(
+  //       task: Task(
+  //         title: titleController.text,
+  //         note: noteController.text,
+  //         date: DateFormat.yMd().format(selectedDate),
+  //         startTime: startTime,
+  //         endTime: endTime,
+  //         remind: selectedRemind,
+  //         repeat: selectedRepeat,
+  //         color: selectedColor,
+  //         isCompleted: 0,
+  //       ),
+  //     );
+  //   } catch (e) {}
+  // }
 
   getDateFromUser() async {
     DateTime? pickedDate = await showDatePicker(
